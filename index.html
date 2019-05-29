@@ -25,12 +25,12 @@
          api.init( '#currencies' ); 
       });
 
-     $( '#fldAmount' ).on("paste keyup", function () {
+     $( '#fldAmount' ).on("paste keyup change", function () {
 
         hideFields();
         // Handler for on change, paste and key up for amount field
         var api = new fixerIoEuroConverter();
-          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
+          api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
      });
 
      $( '#currencies' ).on("change", function () {
@@ -42,7 +42,7 @@
         if ( $.isNumeric( $( '#fldAmount' ).val() ) === false ) { return; } 
 
         var api = new fixerIoEuroConverter();
-          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
+          api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
      });
 
    </script>
