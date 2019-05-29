@@ -26,15 +26,24 @@ Le code doit être pushé sur un repo public sur GitHub.
 
 ## Implémentation
 
-Un objet javascript "fixerIoEuroConverter" gère la consommation du service fixe.io
+Un objet javascript "fixerIoEuroConverter" gère la consommation du service fixer.io
 
-Le constructeur défini les paramètres nécessaires à la consommation du service.
+Son constructeur définit les paramètres nécessaires à la consommation du service.
 
 Il y a 3 méthodes:
+```
 ● init: récupèrte la liste des devises disponibles pour remplir la liste de sélection,
 ● convert: consomme la fonction "convert" de fixer.io. Celle fonctionnalité n'est manifestement pas ou plus gratuite, dans ce cas on appelle la méthode suivante,
 ● convertCallback: consomme la fonction "latest" pour récupérer le dernier taux de change connu de la devise demandée et applique le calcul de la conversion
+```
+
+Il y a 2 fonctions génériques qui gèrent l'affichage des résultats.
 
 Le tout s'appuie sur Jquery 3.4.1. 
+
+La page index.html appelle l'objet.
+
+Le service est consommé à l'initialisation une fois page complètement chargée, au moment de changer ou lorsque qu'une touche du clavier est relâchée sur le champs de saisie du montant
+et lorsqu'une autre valeur de la liste des devises est choisie.
 
 

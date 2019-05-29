@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/fixerIoEuroConverter.js"></script>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+     <h1> Fixer.io Euro converter </h1>
+     <hr />
+     <form>
+       <input type='text' size='6' id='fldAmount'></input> EUR
+       <select id ='currencies'>
+
+       </select>
+     </form>
+    <span id='result' style="color:blue"></span>
+    <br />
+    <div id='error' style="color:red"></div>
+
+   <script>
+      $( document ).ready(function() {
+
+         // Handler for .ready() called.
+         var api = new fixerIoEuroConverter();
+         api.init( '#currencies' ); 
+      });
+
+     $( '#fldAmount' ).on("paste keyup", function () {
+
+        hideFields();
+        // Handler for on change, paste and key up for amount field
+        var api = new fixerIoEuroConverter();
+          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
+     });
+
+     $( '#currencies' ).on("change", function () {
+
+        /* Handler for on change currencies list changes
+        * ne fait rien si le champ fldAmount est vide ou si la saisie n'est pas un nombre 
+        */
+
+        if ( $.isNumeric( $( '#fldAmount' ).val() ) === false ) { return; } 
+
+        var api = new fixerIoEuroConverter();
+          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
+     });
+
+   </script>
+  </body>
+</html>
