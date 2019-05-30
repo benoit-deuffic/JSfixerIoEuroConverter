@@ -45,8 +45,12 @@ function fixerIoEuroConverter () {
 fixerIoEuroConverter.prototype.init = function ( listId )
 {
         var serviceLocation = this.baseUrl + this.listCurEndpoint;
+
+                                              /* ici on a aussi la possibilité de construire les paramètres d'URL avec $.params(), très utile lorsqu'y il y a beaucoup
+                                              * de paramètres à gérer
+                                              * http://api.jquery.com/jquery.param/ 
+                                              */
         var urlWithParams = serviceLocation + '?access_key=' +  this.apiKey;
-        var htmlStr = '';     
 
         console.log('Querying: ' + urlWithParams + '...');
       
@@ -61,7 +65,7 @@ fixerIoEuroConverter.prototype.init = function ( listId )
                /* testons si le service a répondu 'success=true' tel que spécifié dans la doc du service 
                *  là c'est ok, on fait le traitement
                */
-               if ( data.success == true ) {
+               if ( data.success === true ) {
  
                   /* le service a répondu, récupérons nos résultats tel que spécifié dans la doc du service. */
                   var results = data.symbols;
@@ -114,12 +118,17 @@ fixerIoEuroConverter.prototype.init = function ( listId )
 fixerIoEuroConverter.prototype.convert = function ( amount, currency )
 {
         /* ne faisons rien si la valeur amount est nulle ou vide */
-        if ( amount === "" ) { return ; }   
+        if ( !amount || 0 === amount.length ) { return ; }   
 
         /* réinitialisons le champs d'erreur */
         $( "#error" ).hide();
 
         var serviceLocation = this.baseUrl + this.convertEndpoint;
+
+                                              /* ici on a aussi la possibilité de construire les paramètres d'URL avec $.params(), très utile lorsqu'y il y a beaucoup
+                                              * de paramètres à gérer
+                                              * http://api.jquery.com/jquery.param/ 
+                                              */
         var urlWithParams = serviceLocation + '?access_key=' +  this.apiKey 
                                             + '&from=EUR'
                                             + '&to=' + currency
@@ -127,7 +136,7 @@ fixerIoEuroConverter.prototype.convert = function ( amount, currency )
 
         console.log('Querying: ' + urlWithParams + '...');
 
-        /* petit trick pour pouvoir exploiter l'object à l'intérieur d'une fonction anonyme (limitation js), on duplique l'objet dans une variable locale à la fonction courante :-) */
+        /* petit trick pour pouvoir exploiter l'objet à l'intérieur d'une fonction anonyme (limitation js), on duplique l'objet dans une variable locale à la fonction courante :-) */
         var that = this;
 
         $.ajax({
@@ -206,6 +215,10 @@ fixerIoEuroConverter.prototype.convertCallback = function ( amount, currency )
         $( "#error" ).hide();
 
         var serviceLocation = this.baseUrl + this.lastestEndpoint;
+                                              /* ici on a aussi la possibilité de construire les paramètres d'URL avec $.params(), très utile lorsqu'y il y a beaucoup
+                                              * de paramètres à gérer
+                                              * http://api.jquery.com/jquery.param/ 
+                                              */
         var urlWithParams = serviceLocation + '?access_key=' +  this.apiKey 
                                             + '&base=EUR'
                                             + '&currencies=' + currency + ',';
@@ -283,8 +296,8 @@ function displayError ( message ) {
 
 };
 
-/* displayError
-*  fonction générique qui gère l'affichage des messages d'erreur retournés par le service
+/* displayResult
+*  fonction générique qui gère l'affichage du résultat retourné par le service
 *  évite la répétition du même code un peu partout dans le programme.
 *  en entrée : (string) valeur du résultat
 *  en sortie : remplie l'élément du résultat

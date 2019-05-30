@@ -16,33 +16,34 @@
     <span id='result' style="color:blue"></span>
     <br />
     <div id='error' style="color:red"></div>
-
    <script>
+
+      // déclencheur une fois la page html chargée
       $( document ).ready(function() {
 
-         // Handler for .ready() called.
          var api = new fixerIoEuroConverter();
          api.init( '#currencies' ); 
-      });
 
+      });
+     // déclencheur au changement, coller, et touche clavier relâchée sur le champ de saisie du montant
      $( '#fldAmount' ).on("paste keyup change", function () {
 
-        hideFields();
-        // Handler for on change, paste and key up for amount field
-        var api = new fixerIoEuroConverter();
-          api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
+         hideFields();
+         var api = new fixerIoEuroConverter();
+         api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
+
      });
 
+     /* déclencheur au changement de la sélection de la liste des devises.
+      * ne fait rien si la valeur de la saisie n'est pas un nombre 
+      */
      $( '#currencies' ).on("change", function () {
-
-        /* Handler for on change currencies list changes
-        * ne fait rien si le champ fldAmount est vide ou si la saisie n'est pas un nombre 
-        */
 
         if ( $.isNumeric( $( '#fldAmount' ).val() ) === false ) { return; } 
 
         var api = new fixerIoEuroConverter();
           api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
+
      });
 
    </script>
