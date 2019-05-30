@@ -43,6 +43,7 @@ Le tout s'appuie sur Jquery 3.4.1.
 
 La page index.html appelle l'objet.
 
-Le service est consommé à l'initialisation une fois page complètement chargée, au moment de changer ou lorsque qu'une touche du clavier est relâchée sur le champ de saisie du montant
-et lorsqu'une autre valeur de la liste des devises est choisie. Dans notre exemple on fait directement appel à la méthode ```convertCallback``` pour éviter des appels inutiles, ```convert``` n'étant disponible qu'avec un licence payante.
+Le service est consommé à l'initialisation une fois page complètement chargée, au moment de changer ou lorsqu'une touche du clavier est relâchée sur le champ de saisie du montant
+et lorsqu'une autre valeur de la liste des devises est choisie. 
+Dans notre exemple on fait directement appel à la méthode ```convertCallback``` pour éviter des appels inutiles, ```convert``` n'étant disponible qu'avec un licence payante.
 
