@@ -174,6 +174,9 @@ fixerIoEuroConverter.prototype.convert = function ( amount, currency )
                           displayError ( data.error.info + ' Trying with lastest currency rate...' );
                                                   
                           that.convertCallback ( amount, currency );
+
+                          /* on sort */
+                          return ;
                     }
 
                     displayError ( data.error.info );                  
@@ -264,8 +267,7 @@ fixerIoEuroConverter.prototype.convertCallback = function ( amount, currency )
               /* si non, on affiche le message d'erreur qui est retourné par le service */   
                else {
                     
-                    /* ne tenons pas compte du code erreur 105, pour des raisons peut-etre de rate-limiting le service retourne parfois ce code...*/
-                    if (data.error.code !== 105) { displayError ( data.error.info )} ;                  
+                   displayError ( data.error.info ) ;                  
 
                }
             },
