@@ -16,23 +16,29 @@
     <span id='result' style="color:blue"></span>
     <br />
     <div id='error' style="color:red"></div>
-   <script>
+ <script>
+    var params = { baseUrl: 'http://data.fixer.io/api/',
+                   currencyEndpoint: 'symbols',
+                   convertEndpoint: 'latest',
+                   targets: {error:  $( '#error' ), success:  $( '#result' ), list: $( '#currencies' ) }
+                   }; 
 
       // déclencheur une fois la page html chargée
       $( document ).ready(function() {
 
-         var api = new fixerIoEuroConverter();
-         api.init( '#currencies' ); 
+         var api = new fixerIoEuroConverter(params);
+         api.init(); 
 
-      });
+      }.bind(params));
      // déclencheur au changement, coller, et touche clavier relâchée sur le champ de saisie du montant
+
      $( '#fldAmount' ).on("paste keyup change", function () {
 
-         hideFields();
-         var api = new fixerIoEuroConverter();
-         api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
+         hideFields(params['targets']);
+         var api = new fixerIoEuroConverter(params);
+         api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
 
-     });
+     }.bind(params));
 
      /* déclencheur au changement de la sélection de la liste des devises.
       * ne fait rien si la valeur de la saisie n'est pas un nombre 
@@ -41,10 +47,10 @@
 
         if ( $.isNumeric( $( '#fldAmount' ).val() ) === false ) { return; } 
 
-        var api = new fixerIoEuroConverter();
-          api.convertCallback($( '#fldAmount' ).val(), $( '#currencies' ).val());
+        var api = new fixerIoEuroConverter(params);
+          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
 
-     });
+     }.bind(params));
 
    </script>
   </body>
