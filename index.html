@@ -1,7 +1,7 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/fixerIoEuroConverter.js"></script>
+    <script src="js/fixerIoEuroConverter.class.js"></script>
     <meta charset="UTF-8">
   </head>
   <body>
@@ -26,7 +26,7 @@
       // déclencheur une fois la page html chargée
       $( document ).ready(function() {
 
-         var api = new fixerIoEuroConverter(params);
+         let api = new fixerIoEuroConverter(params);
          api.init(); 
 
       }.bind(params));
@@ -35,7 +35,7 @@
      $( '#fldAmount' ).on("paste keyup change", function () {
 
          hideFields(params['targets']);
-         var api = new fixerIoEuroConverter(params);
+         let api = new fixerIoEuroConverter(params);
          api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
 
      }.bind(params));
@@ -47,7 +47,7 @@
 
         if ( $.isNumeric( $( '#fldAmount' ).val() ) === false ) { return; } 
 
-        var api = new fixerIoEuroConverter(params);
+        let api = new fixerIoEuroConverter(params);
           api.convert($( '#fldAmount' ).val(), $( '#currencies' ).val());
 
      }.bind(params));
